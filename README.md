@@ -66,9 +66,9 @@ Generate the .so library with:
 ```
 cd primitives
 g++ -shared -o prologPrimitives.so prologPrimitives.cpp win.cpp \
-\`pkg-config opencv4 --cflags --libs\` \
-\`pkg-config tesseract --cflags --libs\` \
-\`pkg-config swipl --cflags --libs\` -fpic
+`pkg-config opencv4 --cflags --libs` \
+`pkg-config tesseract --cflags --libs` \
+`pkg-config swipl --cflags --libs` -fpic
 ```
 
 ### Run
@@ -79,8 +79,8 @@ swipl
 ?- ['load.pl'].
 ?- solver:demo('<gameid>').
 ```
-where '<gameid>' is one of the games in the image folder (without .png extension).
+where `<gameid>` is one of the games in the `image` folder (without .png extension).
 You can also set the prolog debug flag to see the steps of the spatial reasoning process.
 ```
-set\_prolog\_flag(debug, true).
+set_prolog_flag(debug, true).
 ```
