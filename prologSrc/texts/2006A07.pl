@@ -1,0 +1,12 @@
+numbers_diagram([
+		constr(((row(L);col(L)),line_vals(L,[2,5]))),
+		constr(((row(L);col(L)),line_vals(L,[2,9]))),
+		constr(((row(L);col(L)),line_vals(L,[3,7]))),
+		constr(((row(L);col(L)),line_vals(L,[8,7]))),
+		constr(((row(L);col(L)),line_vals(L,[1,9,6]))),
+		constr(((row(L);col(L)),line_vals(L,[9,3,5]))),
+		constr(((row(L);col(L)),line_vals(L,[1,2,5,6]))),
+		constr(((row(L);col(L)),line_vals(L,[9,8,9,1])))
+	],
+	constr(R,write_vars(R))
+).

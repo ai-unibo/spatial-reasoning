@@ -1,0 +1,1 @@
+divide_same_shape(3,[rotate,overturn]).

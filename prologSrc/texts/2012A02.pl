@@ -1,0 +1,1 @@
+count_polygons(square,constr(X,grid_area(X,4))).
