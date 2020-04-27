@@ -64,7 +64,8 @@ export TESSDATA_PREFIX=/usr/share/tesseract-ocr/4.00/tessdata
 ### Compile the C++ code
 Generate the .so library with:
 ```
-g++ -shared -o primitiveProlog.so primitiveProlog.cpp finestre.cpp \
+cd primitives
+g++ -shared -o prologPrimitives.so prologPrimitives.cpp win.cpp \
 \`pkg-config opencv4 --cflags --libs\` \
 \`pkg-config tesseract --cflags --libs\` \
 \`pkg-config swipl --cflags --libs\` -fpic
@@ -73,6 +74,7 @@ g++ -shared -o primitiveProlog.so primitiveProlog.cpp finestre.cpp \
 ### Run
 Run spatial-reasoning on a mathematical puzzle as follows.
 ```
+cd prologSrc
 swipl
 ?- ['load.pl'].
 ?- solver:demo('<gameid>').
