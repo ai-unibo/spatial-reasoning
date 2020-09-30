@@ -1,4 +1,4 @@
-:-module(solver,[main/1,solve/3,invoke_constraint/1,invoke_constraint/2,invoke_constraint/3,invoke_constraint/4]).
+:-module(solver,[main/1,mainweb/1,solve/3,invoke_constraint/1,invoke_constraint/2,invoke_constraint/3,invoke_constraint/4]).
 :-use_module('debug.pl').
 :-use_module('image.pl').
 :-use_module(library(readutil)).
@@ -12,6 +12,9 @@ main([_,ConstrFile,ImgFile|TArg]):-!,
 	load_img(ImgFile,I),
 	read_file_to_terms(ConstrFile,[P],[]),
 	set_img(I),                         %%%also for non-debug calls, to have all examples working
+	
+	write('P: '),writeln(P),
+    
 	solve(P,I,R),
 	%writeln(R),
     %writeln(TArg),
@@ -29,6 +32,29 @@ main([_,ConstrFile,ImgFile|TArg]):-!,
 main(_):-
 	writeln("Syntax error."),
 	writeln("Arguments needed: <constraint_file> <image_file>"),
+	halt.
+	
+mainweb(InFile, PlText, OutFile):-
+    write('PlText: '),writeln(PlText),
+    (	primitives:check_installed
+	->	true
+	;	primitives:load_dll	%only in compiled version
+	),
+	load_img(InFile,I),
+	set_img(I),     
+	atom_to_term(PlText,P,_),
+	solve(P,I,R),
+	(  R=img(_)
+	->	write_img(OutFile,R)
+	;	true
+	),
+	writeln(result(R)),
+	only_on_web(halt),
+	true.
+
+mainweb(_):-
+	writeln("Syntax error."),
+	writeln("Arguments needed: <input_image_file> <prolog_text> <output_image_file>"),
 	halt.
 
 invoke_constraint(Constr):-
@@ -63,3 +89,8 @@ demo(Game):-
 	atom_concat(IF,'.png',ImgFile),
 	atom_concat('../outimages/',Game,OutFile),
 	main([_,ConstrFile,ImgFile,OutFile]).
+
+demo(ImgFile, PlText, OutFile):-
+    writeln('Solving... '),
+    mainweb(ImgFile, PlText, OutFile).
+	
